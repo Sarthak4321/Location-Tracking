@@ -2,15 +2,23 @@ const express = require('express');
 const app = express();
 const http = require("http");
 const socketio = require("socket.io");
+const path = require("path");
+
 
 const server = http.createServer(app);
 const io = socketio(server);
 
 app.set("view engien", "ejs");
-app.set
+// app.set(express.static(path.join(__dirname, "public")));
+
+
+// io.on("connection", (socket) => {
+//     console.log("a user connected");
+// })
+
 app.get("/", (req, res) => {
-    res.send("i'm hare");
-    console.log("listening...");
+    res.render("index");
+    
 });
 
 app.listen(3000);
