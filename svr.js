@@ -9,11 +9,16 @@ const server = http.createServer(app);
 const io = socketio(server);
 
 app.set("view engine", "ejs");
-app.set(express.static(path.join(__dirname, "public")));
+app.use('/public', express.static(path.join(__dirname, 'public')));
+// app.set(express.static(path.join(__dirname, "public")));
 
 
 io.on("connection", (socket) => {
-    console.log("a user connected");
+    socket.on("sending-location", (data) => {
+        io.emit("spreading-location", {id: socket.id, ...data});
+    })
+
+    socket.on
 })
 
 app.get("/", (req, res) => {
