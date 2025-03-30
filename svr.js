@@ -18,8 +18,10 @@ io.on("connection", (socket) => {
         io.emit("spreading-location", {id: socket.id, ...data});
     })
 
-    socket.on
-})
+    socket.on("user-disconnected", () => {
+        io.emit("user-disconnected", socket.id);
+    })
+});
 
 app.get("/", (req, res) => {
     res.render("index");

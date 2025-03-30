@@ -7,6 +7,8 @@ if (navigator.geolocation) {
         socket.emit('sending-location', { latitude, longitude });
     });
     (error) => {
+        console.error("Geolocation error:", error);
+
         console.error("error");
     },
     {
@@ -21,9 +23,12 @@ if (navigator.geolocation) {
 const map = L.map("map").setView([0, 0], 10);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-const marker = {};
+const marker = {}; // Object to hold markers for each user
+
 
 socket.on("spreading-location", (data) => {
+    console.log("Location data received:", data); // Debug log for received location data
+
     const { id, latitude, longitude } = data;
     map.setView([latitude, longitude]);
     if (marker[id]) {
